@@ -8,6 +8,12 @@ public class Starfield {
    
        bala.update(); //update na posição
        bala.draw(); //desenha a bala
+       cometa.draw();
+       if ( key == ' ' && !bala.ativo ) {
+         bala.x = ship.x + ship.img.width/2 - 20;
+         bala.y = ship.y;
+         bala.ativo = true;
+       }
        
        if ( explo_count == 0 ) {
          if ( keyPressed == true && key == CODED ) {
@@ -45,33 +51,26 @@ public class Starfield {
        
      
     textSize(32);
-    text("Score :  " + score, 250, 150);
+    text("Score :  " + score, 330, 70);
+    textSize(20);
+    text("Pause o Jogo voltando ao menu  ", 20, 20);
     cometa.update();
-     if(explo_count == 0){
-      if ( keyPressed == true && key == CODED ) {
-        if ( keyCode == UP ) {
-          ship.up();
-        } else if ( keyCode == DOWN ) {
-          ship.down();
-        }
-      }
-      ship.draw();
-    }else{
-      image(explo, ship.getBox().x1,ship.getBox().y1);
-      explo_count--;
-    }
-    if(ship.getBox(). isOverlap(cometa.getBox())) {
-      explo_count = 30;//visto que 30fps para ficar ~1seg
-       estado = estadoGameOver;
-    }
+     //if(explo_count == 0){
+     // if ( keyPressed == true && key == CODED ) {
+     //   if ( keyCode == UP ) {
+     //     ship.up();
+     //   } else if ( keyCode == DOWN ) {
+     //     ship.down();
+     //   }
+     // }
+     // ship.draw();
+    //}else{
+     // image(explo, ship.getBox().x1,ship.getBox().y1);
+     // explo_count--;
+    //}
+    
     if(bala.getBox().contador(cometa.getBox())) {
       score++;
     }
-    cometa.draw();
-     if ( key == ' ' && !bala.ativo ) {
-       bala.x = ship.x + ship.img.width/2 - 20;
-       bala.y = ship.y;
-       bala.ativo = true;
-     }
    }
 }

@@ -139,6 +139,8 @@ void keyPressed() {
   //
 }
 
+int count = 0;
+
 void keyPressedEstadoMenu() {
   //
   switch(key) {
@@ -149,17 +151,20 @@ void keyPressedEstadoMenu() {
     estado = estadoStarfield;
     break;
   case '3':
-    minim = new Minim(this);
-    player = minim.loadFile("ThePursuitOfVikings.mp3", 2048);
-    player.play();
-    estado = estadoMenu;
+    count++;
+    if (count%2 != 0) {
+      minim = new Minim(this);
+      player = minim.loadFile("ThePursuitOfVikings.mp3", 2048);
+      player.play();
+      estado = estadoMenu; 
+    } else if ((count%2 == 0) && count != 0) {
+      player.close();
+      minim.stop();
+    }
     break;
   
   case '4':
-    player.close();
-    minim.stop();
-   // super.stop();
-    estado = estadoMenu;
+    // ver high score
     break;
   
   case 'x':
@@ -188,22 +193,22 @@ void drawMenu() {
              background(0); // DESENHA O BACKGROUND
              drawStar();
              
-             textSize(32);
-             text("S T A R F I E L D", 250, 150);
+             textSize(90);
+             text("S t a r f i e l d", 150, 150);
              
-             textSize(25);
+             textSize(30);
              text(" 1 - Menu ", 300, 250);
              
-             textSize(25);
+             textSize(30);
              text(" 2 - jogar ", 300, 350);
              
-             textSize(25);
-             text(" 3 - Reproduzir musica ", 300, 450);
+             textSize(30);
+             text(" 3 - Reproduzir/fechar musica ", 300, 450);
              
-             textSize(25);
-             text(" 4 - fechar musica ", 300, 550);
+             textSize(30);
+             text(" 4 - Ver high score", 300, 550);
              
-             textSize(25);
+             textSize(30);
              text(" X - Sair ", 300, 650);
 }
 
@@ -216,6 +221,11 @@ void starfieldGameOverMenu() {
              
      textSize(50);
      text("Score :  " + score, 275, 390);
+     
+     textSize(50);
+     text("High Score :  " + maxScore(), 275, 450);
+     
+    // maxScore();
              
      textSize(30);
      text("Pressiona uma tecla para saires...", 185, 500);
@@ -238,31 +248,24 @@ void drawStar() {
   }
 }
 
-void maxScore() { // nao funciona nao sei porque
- 
-  try {
+int maxScore() { 
   
-    File file = new File("pontuacoes");
-    Scanner scf = new Scanner(file);
+  String pontuacoes[] = loadStrings("scores.txt");
+  
+   printArray(pontuacoes);
    
-   int pontuacao[] = new int[1];
-   int count = 0;
-   while(scf.hasNextLine()) {
-     pontuacao[count] = Integer.parseInt(scf.nextLine());
-   }
-    
-    if (pontuacao[0] < score) {
-      PrintWriter pw = new PrintWriter(file);
-      pw.println(score);
-      System.out.println(score);
-      pw.close();
-  }
-    
-    scf.close();
+   String[] auxScore = new String[1];
+   auxScore[0] = str(score);
+   //int count = 0;
   
-  } catch(FileNotFoundException e) {
-    System.out.println("Ficheiro nao encontrado");
-  }
+    if (Integer.parseInt(pontuacoes[0]) < score) {
+     saveStrings("scores.txt", auxScore);
+    }
+    
+    if (Integer.parseInt(pontuacoes[0]) < score) {
+      return score;
+    }
+    else return Integer.parseInt(pontuacoes[0]);
 }
 
 // *************************************************************************************************************
