@@ -32,6 +32,7 @@ public class Starfield {
          explo_count = 25;
          estado = estadoGameOver;
          maxScore();
+
          /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
        }
        if ( bala.ativo && cometa.getBox().isOverlap( bala.getBox())) {
@@ -53,7 +54,7 @@ public class Starfield {
     textSize(32);
     text("Score :  " + score, 330, 70);
     textSize(20);
-    text("Pause o Jogo voltando ao menu  ", 20, 20);
+    text("Pause o Jogo voltando ao menu :  press '1' ", 200, 20);
     cometa.update();
      //if(explo_count == 0){
      // if ( keyPressed == true && key == CODED ) {

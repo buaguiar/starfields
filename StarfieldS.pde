@@ -67,6 +67,7 @@ void setupImagemNave() {
 final int estadoMenu = 0;
 final int estadoStarfield = 1;
 final int estadoGameOver = 5;
+final int estadoTOP3 = 3;
 
 int estado = estadoMenu;
 int explo_count = 0;
@@ -92,8 +93,8 @@ void draw() {
          
          break;
          
-       case '4':
-         
+       case estadoTOP3:
+         drawScores();
          break;
          
        case estadoGameOver:
@@ -123,8 +124,8 @@ void keyPressed() {
       keyPressedEstadoMenu();
       break;
       
-    case '4':
-      keyPressedEstadoMenu();
+    case estadoTOP3:
+      keyPressedEstadoTOP3();
       break;
   
   default:
@@ -164,7 +165,7 @@ void keyPressedEstadoMenu() {
     break;
   
   case '4':
-    // ver high score
+    estado = estadoTOP3;
     break;
   
   case 'x':
@@ -189,6 +190,42 @@ void keyPressedEstadoStarField() {
     
 }
 
+void keyPressedEstadoTOP3() {
+  
+  switch(key) {
+  case '2':
+    estado = estadoStarfield;
+    break;
+   
+   default:
+      estado = estadoMenu;
+      break;
+  }
+}
+
+void drawScores() {
+  background(0);
+  drawStar();
+  
+  String pontuacoes[] = loadStrings("scores.txt");
+  
+  
+  textSize(50);
+  text("TOP 3 - Melhores Resultados", 150, 150);
+  
+  textSize(30);
+  text(" 1º:   " + pontuacoes[0] + "  pontos", 300, 250);
+             
+  textSize(30);
+  text(" 2º:   " + pontuacoes[1] + "  pontos", 300, 350);
+             
+  textSize(30);
+  text(" 3º:   " + pontuacoes[2] + " pontos", 300, 450);
+  
+    textSize(25);
+    text(" jogar / retornar ao jogo :  press '2'\n retornar ao menu :  press any key", 230, 650);
+}
+
 void drawMenu() {
              background(0); // DESENHA O BACKGROUND
              drawStar();
@@ -206,7 +243,7 @@ void drawMenu() {
              text(" 3 - Reproduzir/fechar musica ", 300, 450);
              
              textSize(30);
-             text(" 4 - Ver high score", 300, 550);
+             text(" 4 - Ver TOP 3", 300, 550);
              
              textSize(30);
              text(" X - Sair ", 300, 650);
@@ -219,16 +256,16 @@ void starfieldGameOverMenu() {
      textSize(90);
      text("Perdeste   :(", 170, 250);
              
-     textSize(50);
-     text("Score :  " + score, 275, 390);
+     textSize(40);
+     text("Score :  " + score + "  pontos", 230, 390);
      
-     textSize(50);
-     text("High Score :  " + maxScore(), 275, 450);
+     textSize(40);
+     text("High Score :  " + maxScore() + "  pontos", 200, 500);
      
     // maxScore();
              
      textSize(30);
-     text("Pressiona uma tecla para saires...", 185, 500);
+     text("Pressiona uma tecla para saires...", 185, 600);
      
  
 }
@@ -252,19 +289,36 @@ int maxScore() {
   
   String pontuacoes[] = loadStrings("scores.txt");
   
-   printArray(pontuacoes);
+  // printArray(pontuacoes);
+  System.out.println(pontuacoes[0]);
    
-   String[] auxScore = new String[1];
-   auxScore[0] = str(score);
+   String[] auxScore = new String[3];
+  
+   
    //int count = 0;
   
-    if (Integer.parseInt(pontuacoes[0]) < score) {
-     saveStrings("scores.txt", auxScore);
+    if ((Integer.parseInt(pontuacoes[0]) < score) && (Integer.parseInt(pontuacoes[1]) < score) && (Integer.parseInt(pontuacoes[2]) < score)){
+     auxScore[0] = str(score);
+     auxScore[1] = pontuacoes[0];
+     auxScore[2] = pontuacoes[1];
+     saveStrings("/data/scores.txt", auxScore);
+     return score;
     }
     
-    if (Integer.parseInt(pontuacoes[0]) < score) {
-      return score;
+    if ((Integer.parseInt(pontuacoes[0]) > score) && (Integer.parseInt(pontuacoes[1]) < score) && (Integer.parseInt(pontuacoes[2]) < score)) {
+     auxScore[1] = str(score);
+     auxScore[0] = pontuacoes[0];
+     auxScore[2] = pontuacoes[1];
+      return Integer.parseInt(auxScore[0]);
     }
+    
+    if ((Integer.parseInt(pontuacoes[0]) > score) && (Integer.parseInt(pontuacoes[1]) > score) && (Integer.parseInt(pontuacoes[2]) < score)) {
+     auxScore[2] = str(score);
+     auxScore[1] = pontuacoes[1];
+     auxScore[0] = pontuacoes[0];
+      return Integer.parseInt(auxScore[0]);
+    }
+    
     else return Integer.parseInt(pontuacoes[0]);
 }
 
