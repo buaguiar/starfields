@@ -1,6 +1,6 @@
 Starfield Game
 
-Developed by Bruno Aguiar and Samuel Silva
+Developed by Bruno Aguiar(80177) and Samuel Silva(80271)
 
 HOW TO PLAY:
 - Windows 64bit: Go to folder "application.windows64" and run file "starfields"
