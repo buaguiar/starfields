@@ -8,3 +8,6 @@ HOW TO PLAY:
 - Linux   64bit: Go to folder "application.linux64" and run file "starfields"
 - Linux   32bit: Go to folder "application.linux32" and run file "starfields"
 - IF YOUR PROCESSOR HAVE ARM ARCHITECTURE: Go to folder "application.armv6hf" and run file "starfields"
+
+Known ".exe" issues:
+Music don't work. Try run the game with processing.
