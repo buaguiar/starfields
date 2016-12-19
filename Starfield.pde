@@ -56,19 +56,7 @@ public class Starfield {
     textSize(20);
     text("Pause o Jogo voltando ao menu :  press '1' ", 200, 20);
     cometa.update();
-     //if(explo_count == 0){
-     // if ( keyPressed == true && key == CODED ) {
-     //   if ( keyCode == UP ) {
-     //     ship.up();
-     //   } else if ( keyCode == DOWN ) {
-     //     ship.down();
-     //   }
-     // }
-     // ship.draw();
-    //}else{
-     // image(explo, ship.getBox().x1,ship.getBox().y1);
-     // explo_count--;
-    //}
+     
     
     if(bala.getBox().contador(cometa.getBox())) {
       if (cometa.getSpeed() != 15) {
