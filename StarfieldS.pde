@@ -386,14 +386,16 @@ int maxScore() {
      auxScore[1] = str(score);
      auxScore[0] = pontuacoes[0];
      auxScore[2] = pontuacoes[1];
-      return Integer.parseInt(auxScore[0]);
+     saveStrings("/data/scores.txt", auxScore);
+     return Integer.parseInt(auxScore[0]);
     }
     
     if ((Integer.parseInt(pontuacoes[0]) > score) && (Integer.parseInt(pontuacoes[1]) > score) && (Integer.parseInt(pontuacoes[2]) < score)) {
      auxScore[2] = str(score);
      auxScore[1] = pontuacoes[1];
      auxScore[0] = pontuacoes[0];
-      return Integer.parseInt(auxScore[0]);
+     saveStrings("/data/scores.txt", auxScore);
+     return Integer.parseInt(auxScore[0]);
     }
     
     else return Integer.parseInt(pontuacoes[0]);
